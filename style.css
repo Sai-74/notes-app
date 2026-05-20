@@ -1,0 +1,163 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #000;
+  color: #fff;
+  font-family: sans-serif;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* SCREENS */
+#home-screen, #folder-screen, #editor-screen {
+  display: none;
+  height: 100vh;
+  flex-direction: column;
+}
+
+#home-screen {
+  display: flex;
+}
+
+/* TOP BAR */
+#top-bar, #folder-top-bar, #editor-top-bar {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  border-bottom: 1px solid #fff;
+  gap: 10px;
+}
+
+#search-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #fff;
+  color: #fff;
+  font-size: 16px;
+  outline: none;
+  padding: 4px;
+}
+
+#folder-title {
+  flex: 1;
+}
+
+button {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* NOTE GRID */
+#note-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  padding: 12px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.note-card {
+  border: 1px solid #fff;
+  padding: 12px;
+  min-height: 150px;
+  cursor: pointer;
+}
+
+/* SEARCH RESULTS */
+#search-results {
+  display: none;
+  flex-direction: column;
+  padding: 12px;
+  border-bottom: 1px solid #fff;
+}
+
+.search-result-item {
+  padding: 10px 0;
+  border-bottom: 1px solid #333;
+  cursor: pointer;
+}
+
+/* FOLDER NOTES */
+#folder-notes {
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.folder-note-item {
+  padding: 12px 0;
+  border-bottom: 1px solid #fff;
+  cursor: pointer;
+}
+
+/* EDITOR */
+#editor-screen {
+  padding-bottom: 20px;
+}
+
+#note-title {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #fff;
+  color: #fff;
+  font-size: 22px;
+  padding: 12px;
+  outline: none;
+  width: 100%;
+}
+
+#note-body {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  padding: 12px;
+  outline: none;
+  width: 100%;
+  flex: 1;
+  resize: none;
+}
+
+/* SIDEBAR */
+#sidebar {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 70%;
+  height: 100vh;
+  background: #333;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: left 0.3s ease;
+  z-index: 10;
+}
+
+#sidebar.open {
+  left: 0;
+}
+
+.folder-item {
+  padding: 10px 0;
+  border-bottom: 1px solid #555;
+  cursor: pointer;
+}
+
+#add-folder-btn {
+  margin-top: auto;
+  border: 1px solid #fff;
+  padding: 10px;
+  font-size: 16px;
+}

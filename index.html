@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notes</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div id="home-screen" class="js-screen">
+    <div id="top-bar">
+      <button id="menu-btn" class="js-sidebar-btn">☰</button>
+      <input type="text" id="search-input" placeholder="Search...">
+      <button id="ai-btn">Q</button>
+    </div>
+    <div id="search-results"></div>
+    <div id="note-grid" class="js-note-grid"></div>
+  </div>
+
+  <div id="folder-screen" class="js-screen">
+    <div id="folder-top-bar">
+      <button id="back-btn" class="js-screen-btn" data-target="home-screen">←</button>
+      <h2 id="folder-title"></h2>
+    </div>
+    <div id="folder-notes"></div>
+  </div>
+
+  <div id="editor-screen" class="js-screen">
+    <div id="editor-top-bar">
+      <button id="editor-back-btn" class="js-screen-btn js-editor-back-btn" data-target="home-screen">←</button>
+      <select id="folder-select" class="js-folder-select">
+        <option value="">No folder</option>
+      </select>
+      <button id="delete-btn" class="js-delete-btn">🗑</button>
+    </div>
+    <input type="text" id="note-title" placeholder="Title">
+    <textarea id="note-body" placeholder="Start writing..."></textarea>
+  </div>
+
+  <div id="sidebar">
+    <button id="close-sidebar-btn" class="js-sidebar-btn">✕</button>
+    <h2>Folders</h2>
+    <div id="folder-list"></div>
+    <button id="add-folder-btn" class="js-add-folder-btn">+ New Folder</button>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
