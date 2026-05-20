@@ -36,7 +36,9 @@ gridRender();
 function folderRender() {
   let foldersHTML = '';
   folders.forEach(folder => {
-    foldersHTML += `<div class="folder-card js-folder-card" data-id="${folder.folder_id}">${folder.name}</div>`
+    foldersHTML += `<div class="folder-card js-folder-card" data-id="${folder.folder_id}">
+    ${folder.name}<button class="js-delete-folder-btn" data-id="${folder.folder_id}">🗑</button>
+    </div>`
   })
   document.querySelector('#folder-list').innerHTML = foldersHTML;
   document.querySelectorAll('.js-folder-card').forEach(card => {
@@ -68,6 +70,22 @@ function folderRender() {
         switchScreen('folder-screen');
         document.getElementById('sidebar').classList.remove('open');
       }
+    });
+  });
+  document.querySelectorAll('.js-delete-folder-btn').forEach(button => {
+    button.addEventListener('click', () => {
+      const folderId = button.dataset.id;
+      folders = folders.filter(f => f.folder_id !== parseInt(folderId));
+      const transaction = db.transaction('folders', 'readwrite');
+      const foldersStore = transaction.objectStore('folders');
+      foldersStore.delete(parseInt(folderId));
+      const notesToReset = notes.filter(n => n.folder_id === parseInt(folderId));
+      notesToReset.forEach(note => {
+        note.folder_id = null;
+      });
+      saveData();
+      folderRender();
+      folderDropdown();
     });
   });
 }
