@@ -214,3 +214,7 @@ function saveData() {
     foldersStore.put(folder);
   });
 }
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/service-worker.js');
+}
