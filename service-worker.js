@@ -4,10 +4,10 @@ self.addEventListener('install', (e) => {
   e.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
       return cache.addAll([
-        '/index.html',
-        '/style.css',
-        '/app.js',
-        '/manifest.json'
+        '/notes-app/index.html',
+        '/notes-app/style.css',
+        '/notes-app/app.js',
+        '/notes-app/manifest.json'
       ]);
     })
   );
