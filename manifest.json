@@ -12,4 +12,15 @@
       "type": "image/png"
     }
   ]
+  ,
+  "_comments": {
+    "name": "Full name of the PWA shown to users.",
+    "short_name": "Short name used where space is limited.",
+    "start_url": "URL that should be opened when the app is launched.",
+    "display": "How the app is displayed; 'standalone' removes browser UI.",
+    "background_color": "Background color used while the app is loading.",
+    "theme_color": "Theme color for the OS UI (status bar, task switcher).",
+    "icons": "List of app icons in various sizes used for shortcuts and homescreen.",
+    "_comments": "This object contains human-readable descriptions and is ignored by browsers. It's added here solely for developer reference."
+  }
 }

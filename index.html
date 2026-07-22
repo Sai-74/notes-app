@@ -5,48 +5,71 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Notes</title>
+  <!-- Main stylesheet for layout and visuals -->
   <link rel="stylesheet" href="style.css">
+  <!-- Web app manifest for PWA metadata -->
   <link rel="manifest" href="manifest.json">
 </head>
 <body>
 
+  <!-- Home screen: shows search, top bar and the notes grid -->
   <div id="home-screen" class="js-screen">
     <div id="top-bar">
+      <!-- Button that toggles the sidebar (folders) -->
       <button id="menu-btn" class="js-sidebar-btn">☰</button>
+      <!-- Search input for filtering notes -->
       <input type="text" id="search-input" placeholder="Search...">
+      <!-- Placeholder AI/search button (UI only) -->
       <button id="ai-btn">Q</button>
     </div>
+    <!-- Container where search results (if implemented) will appear -->
     <div id="search-results"></div>
+    <!-- Grid container where note cards are rendered by app.js -->
     <div id="note-grid" class="js-note-grid"></div>
   </div>
 
+  <!-- Folder view: displays notes inside a selected folder -->
   <div id="folder-screen" class="js-screen">
     <div id="folder-top-bar">
+      <!-- Back button to return to the home screen -->
       <button id="back-btn" class="js-screen-btn" data-target="home-screen">←</button>
+      <!-- Folder title is populated dynamically -->
       <h2 id="folder-title"></h2>
     </div>
+    <!-- Container for notes belonging to the selected folder -->
     <div id="folder-notes"></div>
   </div>
 
+  <!-- Editor screen: create or edit a note -->
   <div id="editor-screen" class="js-screen">
     <div id="editor-top-bar">
+      <!-- Back/save button handled by app.js to persist the note -->
       <button id="editor-back-btn" class="js-screen-btn js-editor-back-btn" data-target="home-screen">←</button>
+      <!-- Dropdown to assign the note to a folder -->
       <select id="folder-select" class="js-folder-select">
         <option value="">No folder</option>
       </select>
+      <!-- Delete button to remove the current note -->
       <button id="delete-btn" class="js-delete-btn">🗑</button>
     </div>
+    <!-- Optional title input (not currently used in persistence) -->
     <input type="text" id="note-title" placeholder="Title">
+    <!-- Main note body textarea where users write content -->
     <textarea id="note-body" placeholder="Start writing..."></textarea>
   </div>
 
+  <!-- Sidebar containing folders and controls to add folders -->
   <div id="sidebar">
+    <!-- Button to close the sidebar on small screens -->
     <button id="close-sidebar-btn" class="js-sidebar-btn">✕</button>
     <h2>Folders</h2>
+    <!-- Folder list is populated dynamically by app.js -->
     <div id="folder-list"></div>
+    <!-- Button to prompt the user to create a new folder -->
     <button id="add-folder-btn" class="js-add-folder-btn">+ New Folder</button>
   </div>
 
+  <!-- Main application script that handles UI and persistence -->
   <script src="app.js"></script>
 </body>
 </html>
