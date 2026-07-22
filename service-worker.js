@@ -1,5 +1,5 @@
 // Name of the cache used by this service worker. Update to force refreshes.
-const CACHE_NAME = 'notes-app-v1';
+const CACHE_NAME = 'notes-app-v3';
 
 // During the install phase, pre-cache the core application shell so the app
 // can load offline. `waitUntil` ensures the service worker doesn't finish
@@ -8,10 +8,10 @@ self.addEventListener('install', (e) => {
   e.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
       return cache.addAll([
-        '/notes-app/index.html',
-        '/notes-app/style.css',
-        '/notes-app/app.js',
-        '/notes-app/manifest.json'
+        'index.html',
+        'style.css',
+        'app.js',
+        'manifest.json'
       ]);
     })
   );

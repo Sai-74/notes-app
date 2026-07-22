@@ -25,7 +25,9 @@ function gridRender() {
   notesHTML += `<div class="note-card js-new-note">+</div>`
   // Render each note as a card; escape HTML to keep it safe
   notes.forEach(note => {
-    notesHTML += `<div class="note-card js-note-card" data-id="${note.id}">${escapeHTML(note.body)}</div>`
+    notesHTML += `<div class="note-card js-note-card" data-id="${note.id}">
+    <div class="note-preview">${escapeHTML(note.title || 'Untitled')}</div>
+    <div class="note-preview">${escapeHTML(note.body.slice(0, 50))}</div></div>`
   })
 
   // Insert the generated HTML into the grid container
@@ -39,6 +41,7 @@ function gridRender() {
         const note = notes.find(n => n.id === parseInt(noteId));
         if (note) {
           currentNoteId = note.id;
+          document.querySelector('#note-title').value = note.title || '';
           document.querySelector('#note-body').value = note.body;
           document.querySelector('#folder-select').value = note.folder_id || '';
           switchScreen('editor-screen');
@@ -50,6 +53,7 @@ function gridRender() {
   // Add handler for creating a new note when '+' card is clicked
   document.querySelector('.js-new-note').addEventListener('click', () => {
     currentNoteId = null;
+    document.querySelector('#note-title').value = '';
     document.querySelector('#note-body').value = '';
     document.querySelector('#folder-select').value = '';
     switchScreen('editor-screen');
@@ -83,7 +87,9 @@ function folderRender() {
         const folderNotes = notes.filter(n => n.folder_id === parseInt(folderId));
         let notesHTML = '';
         folderNotes.forEach(note => {
-          notesHTML += `<div class="note-card js-note-card" data-id="${note.id}">${escapeHTML(note.body)}</div>`
+          notesHTML += `<div class="note-card js-note-card" data-id="${note.id}">
+          <div class="note-preview">${escapeHTML(note.title || 'Untitled')}</div>
+          <div class="note-preview">${escapeHTML(note.body.slice(0, 50))}</div></div>`
         });
         document.querySelector('#folder-notes').innerHTML = notesHTML;
 
@@ -95,6 +101,7 @@ function folderRender() {
               const note = notes.find(n => n.id === parseInt(noteId));
               if (note) {
                 currentNoteId = note.id;
+                document.querySelector('#note-title').value = note.title || '';
                 document.querySelector('#note-body').value = note.body;
                 document.querySelector('#folder-select').value = note.folder_id || '';
                 switchScreen('editor-screen');
@@ -176,6 +183,7 @@ document.querySelector('.js-editor-back-btn').addEventListener('click', () => {
     // Update existing note in memory
     const note = notes.find(n => n.id === parseInt(currentNoteId));
     if (note) {
+      note.title = document.querySelector('#note-title').value || 'Untitled';
       note.body = document.querySelector('#note-body').value;
       note.folder_id = document.querySelector('#folder-select').value ? parseInt(document.querySelector('#folder-select').value) : null;
     }
@@ -186,6 +194,7 @@ document.querySelector('.js-editor-back-btn').addEventListener('click', () => {
     if (document.querySelector('#note-body').value.trim() !== '') {
       notes.push({
         id: newId,
+        title: document.querySelector('#note-title').value || 'Untitled',
         body: document.querySelector('#note-body').value,
         folder_id: document.querySelector('#folder-select').value ? parseInt(document.querySelector('#folder-select').value) : null
       });
@@ -278,5 +287,5 @@ function saveData() {
 
 // Register the service worker to enable offline support (if available)
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/service-worker.js');
+  navigator.serviceWorker.register('service-worker.js');
 }
