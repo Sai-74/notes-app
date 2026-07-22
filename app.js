@@ -3,11 +3,18 @@ let db;
 let notes = []
 let folders = []
 
+function escapeHTML(text) {
+  return text
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;');
+}
+
 function gridRender() {
   let notesHTML = '';
   notesHTML += `<div class="note-card js-new-note">+</div>`
   notes.forEach(note => {
-    notesHTML += `<div class="note-card js-note-card" data-id="${note.id}">${note.body}</div>`
+    notesHTML += `<div class="note-card js-note-card" data-id="${note.id}">${escapeHTML(note.body)}</div>`
   })
   document.querySelector('#note-grid').innerHTML = notesHTML;
   document.querySelectorAll('.js-note-card').forEach(card => {
@@ -50,7 +57,7 @@ function folderRender() {
         const folderNotes = notes.filter(n => n.folder_id === parseInt(folderId));
         let notesHTML = '';
         folderNotes.forEach(note => {
-          notesHTML += `<div class="note-card js-note-card" data-id="${note.id}">${note.body}</div>`
+          notesHTML += `<div class="note-card js-note-card" data-id="${note.id}">${escapeHTML(note.body)}</div>`
         });
         document.querySelector('#folder-notes').innerHTML = notesHTML;
         document.querySelectorAll('.js-note-card').forEach(card => {
