@@ -169,3 +169,14 @@ button {
   padding: 10px;
   font-size: 16px;
 }
+
+.note-card {
+  border: 1px solid #fff;
+  padding: 12px;
+  min-height: 150px;
+  cursor: pointer;
+}
+
+.note-card div:first-child {
+  font-weight: bold;
+}

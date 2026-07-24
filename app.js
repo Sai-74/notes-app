@@ -242,6 +242,12 @@ document.querySelectorAll('.js-sidebar-btn').forEach(button => {
   });
 });
 
+// Handle search input changes and log the current query to the console
+document.querySelector('#search-input').addEventListener('input', () => {
+  const query = document.querySelector('#search-input').value;
+  console.log('Search query:', query);
+});
+
 // Open (or create) the IndexedDB database used to persist notes and folders
 const request = indexedDB.open('notesApp', 1);
 request.onupgradeneeded = function(event) {
@@ -289,3 +295,5 @@ function saveData() {
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('service-worker.js');
 }
+
+console.log('TEST123');
