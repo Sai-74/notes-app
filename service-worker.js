@@ -1,5 +1,5 @@
 // Name of the cache used by this service worker. Update to force refreshes.
-const CACHE_NAME = 'notes-app-v9';
+const CACHE_NAME = 'notes-app-v10';
 
 // During the install phase, pre-cache the core application shell so the app
 // can load offline. `waitUntil` ensures the service worker doesn't finish
