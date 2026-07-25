@@ -244,8 +244,40 @@ document.querySelectorAll('.js-sidebar-btn').forEach(button => {
 
 // Handle search input changes and log the current query to the console
 document.querySelector('#search-input').addEventListener('input', () => {
-  const query = document.querySelector('#search-input').value;
-  console.log('Search query:', query);
+  const query = document.querySelector('#search-input').value.toLowerCase();
+   const results = notes.filter(note => {
+      return (note.title && note.title.toLowerCase().includes(query)) || (note.body && note.body.toLowerCase().includes(query));
+    });
+  let searchResultsHTML = '';
+  results.forEach(note => {
+    searchResultsHTML += `<div class="search-result-item" data-id="${note.id}">
+    <div class="note-preview">${escapeHTML(note.title || 'Untitled')}</div>
+    <div class="note-preview">${escapeHTML(note.body.slice(0, 50))}</div></div>`
+  });
+  document.querySelector('#search-results').innerHTML = searchResultsHTML;
+
+  document.querySelectorAll('.search-result-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const noteId = item.dataset.id;
+      if (noteId) {
+        const note = notes.find(n => n.id === parseInt(noteId));
+        if (note) {
+          currentNoteId = note.id;
+          document.querySelector('#note-title').value = note.title || '';
+          document.querySelector('#note-body').value = note.body;
+          document.querySelector('#folder-select').value = note.folder_id || '';
+          switchScreen('editor-screen');
+        }
+      }
+    });
+  }); 
+  if (query.trim() !== '') {
+    document.querySelector('#note-grid').style.display = 'none';
+    document.querySelector('#search-results').style.display = 'block';
+  } else {
+    document.querySelector('#note-grid').style.display = 'grid';
+    document.querySelector('#search-results').style.display = 'none';
+  }
 });
 
 // Open (or create) the IndexedDB database used to persist notes and folders
@@ -295,5 +327,3 @@ function saveData() {
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('service-worker.js');
 }
-
-console.log('TEST123');
