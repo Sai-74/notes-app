@@ -242,20 +242,27 @@ document.querySelectorAll('.js-sidebar-btn').forEach(button => {
   });
 });
 
-// Handle search input changes and log the current query to the console
+// Handle changes to the search input and render matching notes in the search results area.
+// This keeps the home grid hidden while search results are visible.
 document.querySelector('#search-input').addEventListener('input', () => {
   const query = document.querySelector('#search-input').value.toLowerCase();
-   const results = notes.filter(note => {
-      return (note.title && note.title.toLowerCase().includes(query)) || (note.body && note.body.toLowerCase().includes(query));
-    });
+
+  // Filter notes by title or body text based on the current query.
+  const results = notes.filter(note => {
+    return (note.title && note.title.toLowerCase().includes(query)) || (note.body && note.body.toLowerCase().includes(query));
+  });
+
+  // Build the search results markup using escaped text to prevent injection.
   let searchResultsHTML = '';
   results.forEach(note => {
     searchResultsHTML += `<div class="search-result-item" data-id="${note.id}">
-    <div class="note-preview">${escapeHTML(note.title || 'Untitled')}</div>
-    <div class="note-preview">${escapeHTML(note.body.slice(0, 50))}</div></div>`
+      <div class="note-preview">${escapeHTML(note.title || 'Untitled')}</div>
+      <div class="note-preview">${escapeHTML(note.body.slice(0, 50))}</div>
+    </div>`;
   });
   document.querySelector('#search-results').innerHTML = searchResultsHTML;
 
+  // Attach click handlers for opening a note from the search results.
   document.querySelectorAll('.search-result-item').forEach(item => {
     item.addEventListener('click', () => {
       const noteId = item.dataset.id;
@@ -270,7 +277,9 @@ document.querySelector('#search-input').addEventListener('input', () => {
         }
       }
     });
-  }); 
+  });
+
+  // Show search results only when the query is non-empty.
   if (query.trim() !== '') {
     document.querySelector('#note-grid').style.display = 'none';
     document.querySelector('#search-results').style.display = 'block';
